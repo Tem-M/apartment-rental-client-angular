@@ -1,0 +1,32 @@
+#container {
+    display: flex; 
+    justify-content:safe;
+}
+
+#filter {
+    max-width: 23%;
+    flex-shrink: 0;
+    margin-right:1%;
+    max-height: inherit;
+    min-height: 100%;
+    border-left: 1px solid lightgray;
+}
+
+
+
+@media (max-width: 800px) {
+    #container {
+        display: block;
+    }
+    #filter{
+        margin:none;
+        flex-shrink: none;
+        height: fit-content;
+        border-left:none;
+        border-bottom: 1px solid lightgray;
+    }
+
+    #collapsibleFilter * {
+        width:100%
+    }
+}

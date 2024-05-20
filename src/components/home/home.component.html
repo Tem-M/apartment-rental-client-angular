@@ -1,0 +1,89 @@
+<div id="container">
+    <div id="filter" *ngIf="this.userS.currentUser.email">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleFilter"
+            onclick="this.blur();" id='hamburger'>
+            <span><img src="../../assets/filter.svg"></span>
+        </button>
+        <div id="collapsibleFilter" class="collapse">
+            <form class="row g-3 align-items-center">
+                <div class="row g-3 align-items-center">
+                    <div>
+                        <select class="form-control" [(ngModel)]="selectedCategory" id="category"
+                            name="selectedCategory">
+                            <option class="form-control" value="" [selected]="true" [disabled]="true">סינון לפי קטגוריה
+                            </option>
+                            <option class="form-control" *ngFor="let i of this.categoryS.allCategories"
+                                value="{{i._id}}">
+                                {{i.name}}</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <button (click)="category()" class="form-control">סינון</button>
+                    </div>
+
+                </div>
+
+                <div class="row g-3 align-items-center">
+                    <div>
+                        <select class="form-control" [(ngModel)]="selectedCity" id="city" name="selectedCity">
+                            <option class="form-control" value="" [selected]="true" [disabled]="true">סינון לפי עיר
+                            </option>
+                            <option class="form-control" *ngFor="let i of this.cityS.allCities" value="{{i._id}}">
+                                {{i.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <button (click)="city()" class="col-auto form-control">סינון</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center">
+                    <label>טווח מחירים:</label>
+                    <div class="col">
+                        <input appMax [max]="max()" type="number" class="form-control min" placeholder="מינימום"
+                            [(ngModel)]="minCurrency" name="minCurrency" id="min" value="">
+                    </div>
+                    <div class="col">
+                        <input appMin [min]="min()" type="number" class="form-control max" placeholder="מקסימום"
+                            [(ngModel)]="maxCurrency" name="maxCurrency" id="max" value="">
+                    </div>
+                    <div>
+                        <button (click)="price()" class="form-control">סינון</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center">
+                    <label>מספר מיטות:</label>
+                    <div class="col">
+                        <input appMin [min]="1" type="number" class="form-control min" placeholder="0"
+                            [(ngModel)]="bedsCount" name="bedsCount" id="min" value="">
+                    </div>
+                    <div>
+                        <button (click)="beds()" class="form-control">סינון</button>
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center">
+                    <div *ngIf="this.apartmentS.filteredApartments.length !== 0">
+                        <button (click)="restart()" class="form-control">ביטול</button>
+                    </div>
+                    <div *ngIf="!this.results">
+                        <span class='alert alert-warning'>לא היו תוצאות</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div style="flex-grow: 1; margin:0; padding:0">
+        <br>
+        <app-loader
+            *ngIf="this.apartmentS.filteredApartments.length === 0 && this.apartmentS.allApartments.length === 0 || this.filtering === true"></app-loader>
+        <app-apartment *ngIf="this.apartmentS.filteredApartments.length === 0"
+            [apartments]="this.apartmentS.allApartments"></app-apartment>
+        <app-apartment *ngIf="this.apartmentS.filteredApartments.length !== 0"
+            [apartments]="this.apartmentS.filteredApartments"></app-apartment>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<br>
+<div *ngIf="this.userS.currentUser.email">
+    <h6>כתובת מייל:</h6>
+    <span>{{this.userS.currentUser.email}}</span>
+    <h6 *ngIf="this.userS.currentUser.phone">טלפון: </h6>
+    <span *ngIf="this.userS.currentUser.phone">{{this.userS.currentUser.phone}}</span>
+    <h6 *ngIf="this.userS.currentUser.phone2">טלפון משני: </h6>
+    <span *ngIf="this.userS.currentUser.phone2">{{this.userS.currentUser.phone2}}</span>
+    <br>
+    <button class="form-control" (click)="logout()" style="min-width:fit-content; max-width: 30%; margin:auto;">יציאה</button>
+    <br>
+    <app-apartment *ngIf="this.userS.currentUser.apartments" [apartments] = "this.userS.currentUser.apartments"></app-apartment>
+</div>

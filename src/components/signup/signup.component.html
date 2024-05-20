@@ -1,0 +1,23 @@
+<br>
+<form class="form control" (ngSubmit)="signUp()" [formGroup]="this.userForm" style="width:fit-content; min-width:20%; text-align: center; margin:auto;">
+    <h1>הרשמה</h1>
+    <br>
+    <label>כתובת מייל</label>
+    <input class="form-control" type="email" placeholder="example@gmail.com" formControlName="email">
+    <span *ngIf="getEmail.invalid && (getEmail.touched || getEmail.dirty)">
+        <span *ngIf="getEmail.errors!['pattern']" style="color:red">כתובת מייל תקינה בלבד</span>
+        <span *ngIf="getEmail.errors!['required']" style="color:red">שדה חובה</span>
+    </span>
+    <br>
+    <label>סיסמא</label>
+    <input class="form-control" type="password" formControlName="password">
+    <span *ngIf="getPassword.invalid && (getPassword.touched || getPassword.dirty)">
+        <span *ngIf="getPassword.errors!['required']" style="color:red">שדה חובה</span>
+    </span>
+    <br>
+    <input class="form-control" type="submit" value="הרשמה">
+    <span><a routerLink="/register">מפרסמים?</a></span>
+    <br>
+    <span>יש לכם חשבון?<a routerLink="/signin">כנסו כאן</a></span>
+</form>
+<app-loader *ngIf="this.loading"></app-loader>

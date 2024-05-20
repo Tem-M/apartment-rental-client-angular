@@ -1,0 +1,9 @@
+.btn-filter {
+    color: #000000;
+    transition: color 0.3s;
+}
+
+
+.btn-filter:hover {
+    color: #878787;
+}

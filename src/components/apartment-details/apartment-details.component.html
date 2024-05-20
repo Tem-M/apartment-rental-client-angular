@@ -1,0 +1,51 @@
+<div *ngIf="!this.apartment.name && this.userS.currentUser.email">
+    <br>
+    <app-loader *ngIf="!this.apartment.name && this.userS.currentUser.email"></app-loader>
+</div>
+<div id="apartment" *ngIf="this.apartment.name && this.userS.currentUser.email"
+    [style.backgroundImage]="'url(' + (this.apartment | img) + ')'"
+    style="width:100%; min-height:90%; max-height:fit-content; overflow:hidden; background-size: cover; background-position: center;">
+    <br>
+    <div class="card"
+        style="min-width:50%; max-width:fit-content; margin:auto; border:none; background: rgba(255, 255, 255, .75)">
+        <div class="card-body">
+            <h5 class="card-title">{{this.apartment.name}}<span style="color:rgb(131, 131, 131)"> /{{this.apartment.category!.name}}</span></h5>
+            <br>
+            <span *ngIf="this.apartment.description" class="card-text">{{this.apartment.description}}</span>
+            <br>
+            <p class="card-text"><b>כתובת:</b> {{this.apartment.address}}, {{this.apartment.city!.name}}</p>
+            <p class="card-text"><b>מספר מיטות:</b> {{this.apartment.numBeds}}</p>
+            <p class="card-text"><b>מחיר ללילה: </b>{{this.apartment.price | nis}}</p>
+            <p *ngIf="this.apartment.additions" class="card-text"><b>תוספות:</b> {{this.apartment.additions}}</p>
+        </div>
+        <div *ngIf="this.userS.currentUser.email && !this.userS.currentUser.isAdvertiser || !ownsApartment()">
+            <button class="btn" onclick="this.blur();" (click)="this.hidden = !this.hidden">יצירת קשר עם הבעלים</button>
+            <br>
+            <br>
+        </div>
+        <div *ngIf="ownsApartment()"
+            style="display:flex; flex-direction: row; justify-content: space-between; width: 20%; margin:auto;">
+            <button class="btn" (click)="delete()" onclick="this.blur();">מחיקה</button>
+            <button class="btn" (click)="edit()" onclick="this.blur();">עריכה</button>
+            <br>
+            <br>
+            <br>
+        </div>
+
+        <div *ngIf="!this.hidden">
+            <div *ngIf="this.apartment.advertiser">
+                <p href=""><b>מייל:</b><a href="mailto:{{this.apartment.advertiser.email}}" style="color:black"> {{this.apartment.advertiser.email}}</a></p>
+
+                <span><b>טלפון:</b></span>
+                <span> {{this.apartment.advertiser.phone}}</span>
+                <span *ngIf="this.apartment.advertiser.phone2">, {{this.apartment.advertiser.phone2}}</span>
+                <br>
+                <br>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div *ngIf="!this.userS.currentUser.email">
+    <h6>אתם צריכים להיות רשומים כדי לראות את הפרטים...</h6>
+</div>

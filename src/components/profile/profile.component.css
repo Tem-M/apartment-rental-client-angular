@@ -1,0 +1,12 @@
+.apartment {
+    width:18rem;
+    height:25rem;
+    margin:5rem;
+    margin-top:0;
+    margin-bottom:5%;
+    flex: 1 1 auto;
+    text-align: center;
+}
+.apartment:last-child {
+    margin-left:auto;
+}

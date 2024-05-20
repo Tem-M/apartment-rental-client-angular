@@ -1,0 +1,13 @@
+<br>
+<div id="apartments"
+    style="display: flex; flex-wrap: wrap; justify-content: flex-start; text-align: center; overflow: visible; margin:auto;">
+    <div class="" *ngFor="let i of this.apartments">
+        <div class="card mb-4 box-shadow apartment">
+            <img class="card-img-top" src="{{ i | img }}" style="height:50%">
+            <br>
+            <h5 class="card-title">{{ i.name }}</h5>
+            <p class="card-text" style="margin:0.5rem; height:20%; overflow: hidden;">{{i.description}}</p>
+            <button *ngIf="i._id && this.userS.currentUser.email" class="btn" (click)="details(i._id)" onclick="this.blur()">פרטים</button>
+        </div>
+    </div>
+</div>

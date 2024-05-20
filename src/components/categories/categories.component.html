@@ -1,0 +1,25 @@
+<div *ngIf="this.userS.currentUser.isAdvertiser">
+    <br>
+    <div *ngFor="let i of this.categoryS.allCategories">
+        <a><h6>{{i.name}}</h6></a>
+    </div>
+    <br>
+    <button type="button" class="form-control" style="min-width: 30%; max-width: fit-content; text-align: center; margin:auto;" (click)="this.hidden = !this.hidden">הוספת קטגוריה</button>
+    <br>
+    <div *ngIf="!this.hidden">
+        
+        <form  [formGroup]="this.newCategory" (ngSubmit)="add()" style="min-width: 30%; max-width: fit-content; text-align: center; margin:auto;">
+            <input type="text" placeholder="שם קטגוריה" formControlName="name" class="form-control">
+
+            <span *ngIf="getName.invalid && (getName.touched || getName.dirty)">
+                <span *ngIf="getName.errors!['required']" style="color:red">שדה חובה</span>
+                <span *ngIf="getName.errors!['pattern']" style="color:red">אותיות עברית בלבד</span>
+            </span>
+            <br>
+            <input type="submit" value="שמירה" class="form-control">
+        </form>
+    </div>
+</div>
+<div *ngIf="!this.userS.currentUser.isAdvertiser">
+    <h4>איזור מפרסמים בלבד</h4>
+</div>

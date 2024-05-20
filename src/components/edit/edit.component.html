@@ -1,0 +1,70 @@
+<br>
+<div *ngIf="this.userS.currentUser.isAdvertiser && ownsApartment()">
+    <form  [formGroup]="this.editApartment" (ngSubmit)="edit()" style="min-width: 50%; max-width: fit-content; text-align: center; margin:auto;">
+        <h5>עריכה</h5>
+        <div style="float:right; margin:auto;">
+            <input placeholder="{{this.apartment.name}}" class="form-control" formControlName="name">
+            <span *ngIf="getName.invalid && (getName.touched || getName.dirty)">
+                <span *ngIf="getName.errors!['required']" style="color:red">שדה חובה</span>
+                <span *ngIf="getName.errors!['pattern']" style="color:red">אותיות עברית בלבד</span>
+            </span>
+            <br>
+            <textarea placeholder="{{this.apartment.description}}" class="form-control" formControlName="description"></textarea>
+            <br>
+            <select [(ngModel)] = "selectedCity" class="form-control" formControlName="city">
+                <option *ngFor="let i of this.cityS.allCities" value="{{i._id}}">{{i.name}}</option>
+            </select>
+            <span *ngIf="getCity.invalid && (getCity.touched || getCity.dirty)"> 
+                <span *ngIf="getCity.errors!['required']" style="color:red">שדה חובה</span>
+                <br>
+            </span>
+            <span style="font-size: small;">לא רואים את העיר שלכם? <a routerLink = "../../city">הוסיפו אותה כאן</a></span>
+            <br>
+            <input placeholder="{{this.apartment.address}}" class="form-control" formControlName="address">
+            <span *ngIf="getAddress.invalid && (getAddress.touched || getAddress.dirty)">
+                <span *ngIf="getAddress.errors!['required']" style="color:red">שדה חובה</span>
+                <span *ngIf="getAddress.errors!['pattern']" style="color:red">אותיות עברית, אנגלית, ספרות והסמלים -'".(), בלבד</span>
+            </span>
+            <br>
+            <input placeholder="{{this.apartment.numBeds}}" type="number" class="form-control" formControlName="numBeds">    
+            <span *ngIf="getNumBeds.invalid && (getNumBeds.touched || getNumBeds.dirty)">
+                <span *ngIf="getNumBeds.errors!['required']" style="color:red">שדה חובה</span>
+                <span *ngIf="getNumBeds.errors!['min']" style="color:red">לפחות מיטה אחת</span>
+                <span *ngIf="getNumBeds.errors!['max']" style="color:red">לכל היותר 50 מיטות</span>
+            </span>
+            <br>
+            <textarea placeholder="{{this.apartment.description}}" class="form-control" formControlName="additions"></textarea>
+        
+            <br>
+            <input placeholder="{{this.apartment.price}}" type="number" step="0.01" class="form-control" formControlName="price">
+            <span *ngIf="getPrice.invalid && (getPrice.touched || getPrice.dirty)">
+                <span *ngIf="getPrice.errors!['required']" style="color:red">שדה חובה</span>
+                <span *ngIf="getPrice.errors!['min']" style="color:red">לפחות 100 ש"ח ללילה</span>
+                <span *ngIf="getPrice.errors!['max']" style="color:red">לכל היותר 5000 ש"ח ללילה</span>
+            </span>
+            <br>
+            <select [(ngModel)]="selectedCategory" class="form-control" formControlName="category">
+                <option *ngFor="let i of this.categoryS.allCategories"  value="{{i._id}}">{{i.name}}</option>
+            </select>
+            <span *ngIf="getCategory.invalid && (getCategory.touched || getCategory.dirty)"> 
+                <span *ngIf="getCategory.errors!['required']" style="color:red">שדה חובה</span>
+                <br>
+            </span>
+            <span style="font-size: small;">לא רואים את הקטגוריה שלכם? <a routerLink = "../../category">הוסיפו אותה כאן</a></span>
+            <br>
+        </div>
+        <div style="float:left; margin: auto;">
+            <input class="form-control" placeholder="{{this.apartment.img}}" (change) = "fileChosen($event)" type="file" id="files" name="files">
+
+            <br>
+            <input class="btn btn-light form-control" type="submit" value="שליחה">
+            <br>
+        </div>
+    </form>  
+</div>
+<div *ngIf="!this.userS.currentUser.isAdvertiser">
+    <h6>איזור מפרסמים בלבד</h6>
+</div>
+<div *ngIf="this.userS.currentUser.isAdvertiser && !ownsApartment()">
+    <h6>נראה שהדירה אינה בבעלותכם</h6>
+</div>
